@@ -44,16 +44,19 @@ body {
   ::-webkit-scrollbar {
     width: 4px;
   }
-  
+
   /* Touch-friendly interactions */
-  button, a {
+  button,
+  a {
     min-height: 44px;
     min-width: 44px;
   }
 }
 
 /* Prevent text selection on UI elements */
-button, .control-btn, .floating-btn {
+button,
+.control-btn,
+.floating-btn {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;

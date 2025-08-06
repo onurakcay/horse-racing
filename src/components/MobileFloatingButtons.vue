@@ -1,24 +1,12 @@
 <template>
   <div class="floating-buttons">
-    <button
-      class="floating-btn results-btn"
-      @click="$emit('showResults')"
-      :title="'Show Results'"
-    >
+    <button class="floating-btn results-btn" @click="$emit('showResults')" :title="'Show Results'">
       🏆
     </button>
-    <button
-      class="floating-btn program-btn"
-      @click="$emit('showProgram')"
-      :title="'Show Program'"
-    >
+    <button class="floating-btn program-btn" @click="$emit('showProgram')" :title="'Show Program'">
       📋
     </button>
-    <button
-      class="floating-btn horses-btn"
-      @click="$emit('showHorses')"
-      :title="'Show Horse List'"
-    >
+    <button class="floating-btn horses-btn" @click="$emit('showHorses')" :title="'Show Horse List'">
       🐎
     </button>
   </div>

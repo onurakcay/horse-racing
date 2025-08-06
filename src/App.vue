@@ -29,34 +29,22 @@ const showResultsSheet = ref(false)
     </div>
 
     <!-- Mobile Floating Buttons -->
-    <MobileFloatingButtons 
+    <MobileFloatingButtons
       @showHorses="showHorsesSheet = true"
       @showProgram="showProgramSheet = true"
       @showResults="showResultsSheet = true"
     />
 
     <!-- Bottom Sheets -->
-    <BottomSheet 
-      :isOpen="showHorsesSheet" 
-      title="Horse List"
-      @close="showHorsesSheet = false"
-    >
+    <BottomSheet :isOpen="showHorsesSheet" title="Horse List" @close="showHorsesSheet = false">
       <HorseList class="mobile" />
     </BottomSheet>
 
-    <BottomSheet 
-      :isOpen="showProgramSheet" 
-      title="Program"
-      @close="showProgramSheet = false"
-    >
+    <BottomSheet :isOpen="showProgramSheet" title="Program" @close="showProgramSheet = false">
       <ProgramComponent class="mobile" />
     </BottomSheet>
 
-    <BottomSheet 
-      :isOpen="showResultsSheet" 
-      title="Results"
-      @close="showResultsSheet = false"
-    >
+    <BottomSheet :isOpen="showResultsSheet" title="Results" @close="showResultsSheet = false">
       <ResultsComponent class="mobile" />
     </BottomSheet>
   </div>
@@ -115,7 +103,7 @@ const showResultsSheet = ref(false)
   .desktop-layout > * {
     flex: none;
   }
-  
+
   .desktop-layout > :nth-child(2) {
     flex: 1;
   }

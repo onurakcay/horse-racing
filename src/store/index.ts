@@ -127,7 +127,10 @@ const store = createStore<RaceState>({
       }
     },
 
-    UPDATE_HORSE_POSITION(state: RaceState, { roundIndex, horseId, position }: { roundIndex: number; horseId: number; position: number }) {
+    UPDATE_HORSE_POSITION(
+      state: RaceState,
+      { roundIndex, horseId, position }: { roundIndex: number; horseId: number; position: number },
+    ) {
       const round = state.rounds[roundIndex]
       if (round) {
         const horse = round.participants.find((h: Horse) => h.id === horseId)
@@ -137,7 +140,10 @@ const store = createStore<RaceState>({
       }
     },
 
-    COMPLETE_ROUND(state: RaceState, { roundIndex, results }: { roundIndex: number; results: RaceResults[] }) {
+    COMPLETE_ROUND(
+      state: RaceState,
+      { roundIndex, results }: { roundIndex: number; results: RaceResults[] },
+    ) {
       const round = state.rounds[roundIndex]
       if (round) {
         round.results = results
@@ -168,14 +174,28 @@ const store = createStore<RaceState>({
       commit('GENERATE_RACE_SCHEDULE')
     },
 
-    startRace({ commit, state, dispatch }: { commit: (type: string) => void; state: RaceState; dispatch: (type: string) => void }) {
+    startRace({
+      commit,
+      state,
+      dispatch,
+    }: {
+      commit: (type: string) => void
+      state: RaceState
+      dispatch: (type: string) => void
+    }) {
       if (!state.raceScheduleGenerated) return
 
       commit('START_RACE')
       dispatch('runNextRound')
     },
 
-    prepareNextRound({ commit, state }: { commit: (type: string, payload?: unknown) => void; state: RaceState }) {
+    prepareNextRound({
+      commit,
+      state,
+    }: {
+      commit: (type: string, payload?: unknown) => void
+      state: RaceState
+    }) {
       const nextRoundIndex = state.currentRound + 1
       if (nextRoundIndex >= state.totalRounds) return
 
@@ -183,7 +203,13 @@ const store = createStore<RaceState>({
       // Don't start the race automatically, just prepare
     },
 
-    async runNextRound({ commit, state }: { commit: (type: string, payload?: unknown) => void; state: RaceState }) {
+    async runNextRound({
+      commit,
+      state,
+    }: {
+      commit: (type: string, payload?: unknown) => void
+      state: RaceState
+    }) {
       if (state.currentRound >= state.totalRounds) {
         commit('STOP_RACE')
         return
