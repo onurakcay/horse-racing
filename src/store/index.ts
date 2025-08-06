@@ -73,7 +73,7 @@ const store = createStore<RaceState>({
     roundPreparationNeeded: false, // New state to track if round preparation is needed
   },
   mutations: {
-    GENERATE_RACE_SCHEDULE(state) {
+    GENERATE_RACE_SCHEDULE(state: RaceState) {
       const rounds: Round[] = []
 
       for (let i = 0; i < 6; i++) {
@@ -99,45 +99,45 @@ const store = createStore<RaceState>({
       state.roundPreparationNeeded = false
     },
 
-    START_RACE(state) {
+    START_RACE(state: RaceState) {
       state.isRaceActive = true
       // Don't reset currentRound, keep it at the current position
     },
 
-    START_ROUND(state, roundIndex: number) {
+    START_ROUND(state: RaceState, roundIndex: number) {
       state.isRacing = true
       state.currentRound = roundIndex
       state.roundPreparationNeeded = false
       // Reset positions for the first round only
       if (roundIndex === 0 && state.rounds[roundIndex]) {
-        state.rounds[roundIndex].participants.forEach((horse) => {
+        state.rounds[roundIndex].participants.forEach((horse: Horse) => {
           horse.position = 0
         })
       }
     },
 
-    PREPARE_ROUND(state, roundIndex: number) {
+    PREPARE_ROUND(state: RaceState, roundIndex: number) {
       state.roundPreparationNeeded = false
       state.currentRound = roundIndex
       // Reset positions for the new round
       if (state.rounds[roundIndex]) {
-        state.rounds[roundIndex].participants.forEach((horse) => {
+        state.rounds[roundIndex].participants.forEach((horse: Horse) => {
           horse.position = 0
         })
       }
     },
 
-    UPDATE_HORSE_POSITION(state, { roundIndex, horseId, position }) {
+    UPDATE_HORSE_POSITION(state: RaceState, { roundIndex, horseId, position }: { roundIndex: number; horseId: number; position: number }) {
       const round = state.rounds[roundIndex]
       if (round) {
-        const horse = round.participants.find((h) => h.id === horseId)
+        const horse = round.participants.find((h: Horse) => h.id === horseId)
         if (horse) {
           horse.position = position
         }
       }
     },
 
-    COMPLETE_ROUND(state, { roundIndex, results }) {
+    COMPLETE_ROUND(state: RaceState, { roundIndex, results }: { roundIndex: number; results: RaceResults[] }) {
       const round = state.rounds[roundIndex]
       if (round) {
         round.results = results
@@ -146,12 +146,12 @@ const store = createStore<RaceState>({
       }
     },
 
-    STOP_RACE(state) {
+    STOP_RACE(state: RaceState) {
       state.isRacing = false
       state.isRaceActive = false
     },
 
-    RESET_RACE(state) {
+    RESET_RACE(state: RaceState) {
       state.rounds = []
       state.raceScheduleGenerated = false
       state.currentRound = 0
@@ -164,18 +164,18 @@ const store = createStore<RaceState>({
   },
 
   actions: {
-    generateRaceSchedule({ commit }) {
+    generateRaceSchedule({ commit }: { commit: (type: string) => void }) {
       commit('GENERATE_RACE_SCHEDULE')
     },
 
-    startRace({ commit, state, dispatch }) {
+    startRace({ commit, state, dispatch }: { commit: (type: string) => void; state: RaceState; dispatch: (type: string) => void }) {
       if (!state.raceScheduleGenerated) return
 
       commit('START_RACE')
       dispatch('runNextRound')
     },
 
-    prepareNextRound({ commit, state }) {
+    prepareNextRound({ commit, state }: { commit: (type: string, payload?: unknown) => void; state: RaceState }) {
       const nextRoundIndex = state.currentRound + 1
       if (nextRoundIndex >= state.totalRounds) return
 
@@ -183,7 +183,7 @@ const store = createStore<RaceState>({
       // Don't start the race automatically, just prepare
     },
 
-    async runNextRound({ commit, state }) {
+    async runNextRound({ commit, state }: { commit: (type: string, payload?: unknown) => void; state: RaceState }) {
       if (state.currentRound >= state.totalRounds) {
         commit('STOP_RACE')
         return
@@ -212,7 +212,7 @@ const store = createStore<RaceState>({
         }
 
         // Update horse positions based on condition
-        currentRound.participants.forEach((horse) => {
+        currentRound.participants.forEach((horse: Horse) => {
           const baseSpeed = (horse.condition / 100) * 5
           const randomFactor = Math.random() * 3
           const speed = baseSpeed + randomFactor
@@ -227,7 +227,7 @@ const store = createStore<RaceState>({
 
         // Check if race is finished
         const finishedHorses = currentRound.participants.filter(
-          (horse) => (horse.position || 0) >= currentRound.distance,
+          (horse: Horse) => (horse.position || 0) >= currentRound.distance,
         )
 
         if (finishedHorses.length > 0) {
@@ -260,27 +260,27 @@ const store = createStore<RaceState>({
       }, 100)
     },
 
-    stopRace({ commit }) {
+    stopRace({ commit }: { commit: (type: string) => void }) {
       commit('STOP_RACE')
     },
 
-    resetRace({ commit }) {
+    resetRace({ commit }: { commit: (type: string) => void }) {
       commit('RESET_RACE')
     },
   },
 
   getters: {
-    currentRoundData: (state) => {
+    currentRoundData: (state: RaceState) => {
       return state.rounds[state.currentRound] || null
     },
 
-    completedRounds: (state) => {
-      return state.rounds.filter((round) => round.isCompleted)
+    completedRounds: (state: RaceState) => {
+      return state.rounds.filter((round: Round) => round.isCompleted)
     },
 
-    raceProgress: (state) => {
+    raceProgress: (state: RaceState) => {
       if (!state.rounds.length) return 0
-      const completedCount = state.rounds.filter((r) => r.isCompleted).length
+      const completedCount = state.rounds.filter((r: Round) => r.isCompleted).length
       return (completedCount / state.totalRounds) * 100
     },
   },

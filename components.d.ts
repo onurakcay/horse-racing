@@ -12,7 +12,6 @@ declare module 'vue' {
     BottomSheet: typeof import('./src/components/BottomSheet.vue')['default']
     HorseList: typeof import('./src/components/HorseList.vue')['default']
     MobileFloatingButtons: typeof import('./src/components/MobileFloatingButtons.vue')['default']
-    Program: typeof import('./src/components/Program.vue')['default']
     ProgramComponent: typeof import('./src/components/ProgramComponent.vue')['default']
     ProgramResults: typeof import('./src/components/ProgramResults.vue')['default']
     RaceTrack: typeof import('./src/components/RaceTrack.vue')['default']
