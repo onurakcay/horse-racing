@@ -194,4 +194,48 @@ const getHorseColor = (horseName: string, participants: Horse[]) => {
   border: 1px solid rgba(0, 0, 0, 0.3);
   vertical-align: middle;
 }
+
+/* Mobile optimizations */
+.program-results.mobile {
+  width: 100%;
+  flex-direction: column;
+  gap: 0;
+}
+
+.program-results.mobile .program-section,
+.program-results.mobile .results-section {
+  border: none;
+  border-radius: 0;
+  margin-bottom: 16px;
+}
+
+.program-results.mobile .section-header {
+  font-size: 18px;
+  padding: 12px 16px;
+}
+
+.program-results.mobile .round-header {
+  font-size: 14px;
+  padding: 8px 12px;
+}
+
+.program-results.mobile .results-table {
+  font-size: 14px;
+}
+
+.program-results.mobile .results-table th,
+.program-results.mobile .results-table td {
+  padding: 8px 12px;
+}
+
+.program-results.mobile .color-indicator {
+  width: 14px;
+  height: 14px;
+}
+
+.program-results.mobile .completed-badge {
+  font-size: 12px;
+  width: 20px;
+  height: 20px;
+}
 </style>

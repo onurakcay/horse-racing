@@ -6,24 +6,30 @@
         class="control-btn generate-btn"
         @click="generateRaceSchedule"
         :disabled="isRaceActive"
+        :title="'Generate Program'"
       >
-        GENERATE PROGRAM
+        <span class="desktop-text">GENERATE PROGRAM</span>
+        <span class="mobile-icon">📊</span>
       </button>
       <button
         v-if="raceScheduleGenerated"
         class="control-btn race-btn"
         @click="toggleRace"
         :disabled="!raceScheduleGenerated || (currentRound >= totalRounds && !isRaceActive)"
+        :title="getRaceButtonText"
       >
-        {{ getRaceButtonText }}
+        <span class="desktop-text">{{ getRaceButtonText }}</span>
+        <span class="mobile-icon">{{ getRaceIcon }}</span>
       </button>
       <button
         v-if="raceScheduleGenerated"
         class="control-btn reset-btn"
         @click="resetRace"
         :disabled="isRacing"
+        :title="'Reset'"
       >
-        RESET
+        <span class="desktop-text">RESET</span>
+        <span class="mobile-icon">🔄</span>
       </button>
     </div>
   </header>
@@ -55,6 +61,22 @@ const getRaceButtonText = computed(() => {
   }
 
   return `START ROUND ${currentRound.value + 1}`
+})
+
+const getRaceIcon = computed(() => {
+  if (isRaceActive.value && isRacing.value) {
+    return '⏹️'
+  }
+
+  if (currentRound.value >= totalRounds.value) {
+    return '🏁'
+  }
+
+  if (roundPreparationNeeded.value) {
+    return '⚙️'
+  }
+
+  return '▶️'
 })
 
 const generateRaceSchedule = () => {
@@ -150,5 +172,46 @@ const resetRace = () => {
 
 .control-btn:active {
   transform: translateY(0);
+}
+
+/* Mobile styles */
+.mobile-icon {
+  display: none;
+  font-size: 18px;
+}
+
+.desktop-text {
+  display: inline;
+}
+
+@media (max-width: 768px) {
+  .app-header {
+    padding: 8px 16px;
+  }
+
+  .title {
+    font-size: 16px;
+  }
+
+  .control-btn {
+    padding: 8px;
+    min-width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mobile-icon {
+    display: inline;
+  }
+
+  .desktop-text {
+    display: none;
+  }
+
+  .controls {
+    gap: 8px;
+  }
 }
 </style>

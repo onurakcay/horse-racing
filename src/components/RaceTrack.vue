@@ -182,4 +182,65 @@ const getHorsePosition = (horse: Horse) => {
   text-align: center;
   font-style: italic;
 }
+
+/* Mobile responsive design */
+@media (max-width: 768px) {
+  .race-track {
+    margin: 0;
+    height: 100%;
+  }
+
+  .track-container {
+    height: 75%;
+  }
+
+  .lane-number {
+    font-size: 10px;
+    min-width: 20px;
+  }
+
+  .lane {
+    height: 30px;
+    margin: 2px 0;
+  }
+
+  .horse {
+    font-size: 16px;
+    width: 20px;
+    height: 20px;
+  }
+
+  .finish-line {
+    width: 6px;
+  }
+
+  .finish-text {
+    font-size: 10px;
+    padding: 4px 2px;
+  }
+
+  .round-info {
+    height: 25%;
+    padding: 8px;
+  }
+
+  .round-details {
+    font-size: 14px;
+  }
+
+  .no-round {
+    font-size: 12px;
+  }
+}
+
+/* Tablet responsive design */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .round-details {
+    font-size: 16px;
+  }
+
+  .horse {
+    font-size: 18px;
+  }
+}
 </style>

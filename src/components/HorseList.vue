@@ -102,4 +102,30 @@ tr:hover {
   margin-right: 4px;
   border: 1px solid #333;
 }
+
+/* Mobile optimizations */
+.horse-list.mobile {
+  width: 100%;
+  height: auto;
+  border: none;
+  border-radius: 0;
+}
+
+.horse-list.mobile .header h3 {
+  font-size: 16px;
+}
+
+.horse-list.mobile table {
+  font-size: 14px;
+}
+
+.horse-list.mobile th,
+.horse-list.mobile td {
+  padding: 8px 12px;
+}
+
+.horse-list.mobile .color-indicator {
+  width: 16px;
+  height: 16px;
+}
 </style>

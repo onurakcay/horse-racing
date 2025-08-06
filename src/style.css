@@ -31,3 +31,37 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Better scrollbar for mobile */
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  /* Touch-friendly interactions */
+  button, a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Prevent text selection on UI elements */
+button, .control-btn, .floating-btn {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Smooth transitions for better UX */
+* {
+  -webkit-transition: transform 0.2s ease;
+  transition: transform 0.2s ease;
+}

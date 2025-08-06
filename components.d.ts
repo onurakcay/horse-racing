@@ -9,9 +9,14 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AppHeader: typeof import('./src/components/AppHeader.vue')['default']
+    BottomSheet: typeof import('./src/components/BottomSheet.vue')['default']
     HorseList: typeof import('./src/components/HorseList.vue')['default']
+    MobileFloatingButtons: typeof import('./src/components/MobileFloatingButtons.vue')['default']
+    Program: typeof import('./src/components/Program.vue')['default']
+    ProgramComponent: typeof import('./src/components/ProgramComponent.vue')['default']
     ProgramResults: typeof import('./src/components/ProgramResults.vue')['default']
     RaceTrack: typeof import('./src/components/RaceTrack.vue')['default']
+    ResultsComponent: typeof import('./src/components/ResultsComponent.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }
