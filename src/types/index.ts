@@ -29,4 +29,5 @@ export interface RaceState {
   isRaceActive: boolean
   raceScheduleGenerated: boolean
   roundPreparationNeeded: boolean
+  gameCompleted: boolean
 }

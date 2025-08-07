@@ -5,7 +5,7 @@
       <button
         class="control-btn generate-btn"
         @click="generateRaceSchedule"
-        :disabled="isRaceActive"
+        :disabled="isRaceActive || raceScheduleGenerated"
         :title="'Generate Program'"
       >
         <span class="desktop-text">GENERATE PROGRAM</span>
@@ -15,7 +15,9 @@
         v-if="raceScheduleGenerated"
         class="control-btn race-btn"
         @click="toggleRace"
-        :disabled="!raceScheduleGenerated || (currentRound >= totalRounds && !isRaceActive)"
+        :disabled="
+          !raceScheduleGenerated || (currentRound >= totalRounds && !isRaceActive && !gameCompleted)
+        "
         :title="getRaceButtonText"
       >
         <span class="desktop-text">{{ getRaceButtonText }}</span>
@@ -46,10 +48,15 @@ const raceScheduleGenerated = computed(() => store.state.raceScheduleGenerated)
 const currentRound = computed(() => store.state.currentRound)
 const totalRounds = computed(() => store.state.totalRounds)
 const roundPreparationNeeded = computed(() => store.state.roundPreparationNeeded)
+const gameCompleted = computed(() => store.state.gameCompleted)
 
 const getRaceButtonText = computed(() => {
   if (isRaceActive.value && isRacing.value) {
     return 'STOP'
+  }
+
+  if (gameCompleted.value) {
+    return 'END GAME'
   }
 
   if (currentRound.value >= totalRounds.value) {
@@ -68,6 +75,10 @@ const getRaceIcon = computed(() => {
     return '⏹️'
   }
 
+  if (gameCompleted.value) {
+    return '🏆'
+  }
+
   if (currentRound.value >= totalRounds.value) {
     return '🏁'
   }
@@ -84,7 +95,10 @@ const generateRaceSchedule = () => {
 }
 
 const toggleRace = () => {
-  if (isRaceActive.value && isRacing.value) {
+  if (gameCompleted.value) {
+    // End game acts like reset
+    store.dispatch('resetRace')
+  } else if (isRaceActive.value && isRacing.value) {
     store.dispatch('stopRace')
   } else if (roundPreparationNeeded.value) {
     store.dispatch('prepareNextRound')

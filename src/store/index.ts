@@ -71,6 +71,7 @@ const store = createStore<RaceState>({
     isRaceActive: false,
     raceScheduleGenerated: false,
     roundPreparationNeeded: false, // New state to track if round preparation is needed
+    gameCompleted: false, // New state to track if all rounds are completed
   },
   mutations: {
     GENERATE_RACE_SCHEDULE(state: RaceState) {
@@ -164,6 +165,7 @@ const store = createStore<RaceState>({
       state.isRacing = false
       state.isRaceActive = false
       state.roundPreparationNeeded = false
+      state.gameCompleted = false
       // Regenerate horses with new conditions
       state.allHorses = generateHorses()
     },
@@ -280,6 +282,7 @@ const store = createStore<RaceState>({
             // Don't change currentRound here, keep showing current round results
           } else {
             // All rounds completed
+            state.gameCompleted = true
             commit('STOP_RACE')
           }
         }
