@@ -1,6 +1,6 @@
 # Horse Racing App 🐎
 
-Try it: race.onurakcay.dev
+[Try it](https://race.onurakcay.dev/)
 
 
 A comprehensive horse racing simulation application built with Vue 3, TypeScript, and Vuex. Features 6 rounds of racing with 20 unique horses, complete with animations, mobile responsiveness, and comprehensive testing.
